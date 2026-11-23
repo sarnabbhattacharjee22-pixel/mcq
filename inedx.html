@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Computer Fundamentals MCQ Examination</title>
+  <style>
+    :root {
+      --bg-base: #090b0f;
+      --bg-surface: #11141b;
+      --bg-elevated: #171b24;
+      --bg-hover: #1e2430;
+      --border-subtle: #232a36;
+      --border-strong: #323c4d;
+
+      --text-primary: #f3f6fc;
+      --text-secondary: #9aa5b8;
+      --text-muted: #667287;
+
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --accent-soft: rgba(59, 130, 246, 0.14);
+      --accent-border: rgba(59, 130, 246, 0.45);
+
+      --success: #22c55e;
+      --success-soft: rgba(34, 197, 94, 0.12);
+      --success-border: rgba(34, 197, 94, 0.45);
+
+      --danger: #ef4444;
+      --danger-soft: rgba(239, 68, 68, 0.12);
+      --danger-border: rgba(239, 68, 68, 0.45);
+
+      --warning: #f59e0b;
+      --warning-soft: rgba(245, 158, 11, 0.12);
+      --warning-border: rgba(245, 158, 11, 0.4);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.38);
+      --transition: 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .screen {
+      min-height: 100vh;
+      width: 100%;
+      animation: fadeIn 240ms ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==================== SHARED COMPONENTS ==================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: background-color var(--transition), border-color var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--bg-hover);
+      border-color: #46536a;
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: #ffffff;
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background-color: #dc2626;
+    }
+
+    .btn-lg {
+      padding: 14px 28px;
+      font-size: 1rem;
+      border-radius: 10px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border: 1px solid transparent;
+    }
+
+    .badge-neutral {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border-color: var(--border-subtle);
+    }
+
+    .badge-accent {
+      background: var(--accent-soft);
+      color: #93c5fd;
+      border-color: var(--accent-border);
+    }
+
+    .badge-success {
+      background: var(--success-soft);
+      color: #86efac;
+      border-color: var(--success-border);
+    }
+
+    .badge-danger {
+      background: var(--danger-soft);
+      color: #fca5a5;
+      border-color: var(--danger-border);
+    }
+
+    .badge-warning {
+      background: var(--warning-soft);
+      color: #fcd34d;
+      border-color: var(--warning-border);
+    }
+
+    /* ==================== SETUP SCREEN ==================== */
+    .setup-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+
+    .setup-card {
+      width: 100%;
+      max-width: 780px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .setup-header {
+      padding: 36px 40px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .setup-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .setup-title {
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .setup-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      max-width: 60ch;
+    }
+
+    .setup-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .stat-pill {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+
+    .stat-pill-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .stat-pill-value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .setup-body {
+      padding: 32px 40px 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .section-label {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .duration-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .duration-option {
+      text-align: left;
+      padding: 18px 20px;
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border-subtle);
+      transition: border-color var(--transition), background-color var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .duration-option:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-strong);
+    }
+
+    .duration-option.selected {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .duration-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+
+    .duration-desc {
+      font-size: 0.825rem;
+      color: var(--text-secondary);
+    }
+
+    .radio-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      flex-shrink: 0;
+      position: relative;
+      transition: border-color var(--transition);
+    }
+
+    .duration-option.selected .radio-dot {
+      border-color: var(--accent);
+    }
+
+    .duration-option.selected .radio-dot::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .rules-box {
+      background: #0d1016;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px 22px;
+    }
+
+    .rules-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .rules-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .rule-bullet {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 9px;
+      flex-shrink: 0;
+    }
+
+    .rules-list li strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .simulation-note {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .setup-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .ready-hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ==================== EXAM SCREEN ==================== */
+    .exam-layout {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .exam-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(17, 20, 27, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 28px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .topbar-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topbar-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      min-width: 240px;
+    }
+
+    .progress-meta {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-elevated);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 999px;
+      transition: width 240ms ease;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+
+    .timer-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      transition: border-color var(--transition), color var(--transition), background-color var(--transition);
+    }
+
+    .timer-pill.warning {
+      background: var(--warning-soft);
+      border-color: var(--warning-border);
+      color: #fcd34d;
+    }
+
+    .timer-pill.critical {
+      background: var(--danger-soft);
+      border-color: var(--danger-border);
+      color: #fca5a5;
+    }
+
+    .warning-banner {
+      background: var(--warning-soft);
+      border-bottom: 1px solid var(--warning-border);
+      color: #fde68a;
+      padding: 10px 28px;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .exam-main {
+      flex: 1;
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 310px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .question-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      min-height: 490px;
+    }
+
+    .question-header {
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .question-counter {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .question-body {
+      padding: 30px 28px;
+      flex: 1;
+    }
+
+    .question-text {
+      font-size: 1.32rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--text-primary);
+      margin-bottom: 26px;
+      letter-spacing: -0.015em;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border-subtle);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+    }
+
+    .option-btn:hover {
+      background: var(--bg-hover);
+      border-color: var(--border-strong);
+    }
+
+    .option-btn.selected {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .option-key {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      margin-top: 1px;
+      transition: background-color var(--transition), border-color var(--transition), color var(--transition);
+    }
+
+    .option-btn.selected .option-key {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .option-text {
+      font-size: 0.975rem;
+      color: var(--text-primary);
+      line-height: 1.45;
+      padding-top: 2px;
+    }
+
+    .question-footer {
+      padding: 18px 28px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* ==================== NAVIGATOR SIDEBAR ==================== */
+    .navigator-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .nav-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .nav-summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .nav-stat {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+    }
+
+    .nav-stat-num {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nav-stat-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+
+    .nav-cell {
+      aspect-ratio: 1;
+      border-radius: 7px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .nav-cell:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .nav-cell.answered {
+      background: var(--accent-soft);
+      border-color: var(--accent-border);
+      color: #bfdbfe;
+    }
+
+    .nav-cell.current {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+      color: #ffffff;
+      background: var(--accent);
+    }
+
+    .nav-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      border: 1px solid transparent;
+    }
+
+    .swatch-current { background: var(--accent); }
+    .swatch-answered { background: var(--accent-soft); border-color: var(--accent-border); }
+    .swatch-unanswered { background: var(--bg-elevated); border-color: var(--border-subtle); }
+
+    /* ==================== RESULTS SCREEN ==================== */
+    .results-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 20px;
+    }
+
+    .results-card {
+      width: 100%;
+      max-width: 820px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+
+    .termination-banner {
+      background: var(--danger-soft);
+      border-bottom: 1px solid var(--danger-border);
+      padding: 22px 36px;
+    }
+
+    .termination-title {
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #fca5a5;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .termination-msg {
+      font-size: 0.92rem;
+      color: #fecaca;
+    }
+
+    .results-hero {
+      padding: 36px 40px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: center;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .score-ring-wrap {
+      position: relative;
+      width: 152px;
+      height: 152px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .score-ring-svg {
+      width: 152px;
+      height: 152px;
+      transform: rotate(-90deg);
+    }
+
+    .ring-bg {
+      fill: none;
+      stroke: var(--bg-elevated);
+      stroke-width: 10;
+    }
+
+    .ring-progress {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 10;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .ring-progress.pass { stroke: var(--success); }
+    .ring-progress.fail { stroke: var(--danger); }
+
+    .score-ring-center {
+      position: absolute;
+      text-align: center;
+    }
+
+    .score-percent {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .score-sub {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .results-status-block h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 10px 0 8px;
+    }
+
+    .results-status-block p {
+      color: var(--text-secondary);
+      font-size: 0.94rem;
+    }
+
+    .results-metrics {
+      padding: 28px 40px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .metric-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+
+    .metric-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .metric-val {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .metric-val.green { color: #4ade80; }
+    .metric-val.red { color: #f87171; }
+    .metric-val.amber { color: #fbbf24; }
+
+    .results-actions {
+      padding: 24px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ==================== REVIEW SCREEN ==================== */
+    .review-layout {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+
+    .review-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 15;
+      background: rgba(9, 11, 15, 0.92);
+      backdrop-filter: blur(10px);
+      padding: 16px 0;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .review-heading {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .filter-btn {
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      transition: all var(--transition);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .filter-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #bfdbfe;
+    }
+
+    .review-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .review-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px 26px;
+    }
+
+    .review-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .review-q-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+
+    .review-q-text {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .review-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .review-opt {
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .review-opt-left {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .review-opt-letter {
+      font-weight: 700;
+      color: var(--text-muted);
+      min-width: 18px;
+    }
+
+    .review-opt.is-correct {
+      background: var(--success-soft);
+      border-color: var(--success-border);
+      color: #dcfce7;
+    }
+
+    .review-opt.is-correct .review-opt-letter {
+      color: #4ade80;
+    }
+
+    .review-opt.is-wrong {
+      background: var(--danger-soft);
+      border-color: var(--danger-border);
+      color: #fee2e2;
+    }
+
+    .review-opt.is-wrong .review-opt-letter {
+      color: #f87171;
+    }
+
+    .review-opt-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .review-explanation {
+      background: #0d1016;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 12px 16px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .review-explanation strong {
+      color: var(--text-primary);
+    }
+
+    /* ==================== MODAL ==================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 440px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .modal-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .modal-text {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 960px) {
+      .exam-topbar {
+        grid-template-columns: 1fr auto;
+        padding: 12px 18px;
+      }
+
+      .topbar-center {
+        grid-column: 1 / -1;
+        order: 3;
+        min-width: 0;
+        width: 100%;
+      }
+
+      .exam-main {
+        grid-template-columns: 1fr;
+        padding: 18px;
+      }
+
+      .navigator-panel {
+        position: static;
+      }
+
+      .nav-grid {
+        grid-template-columns: repeat(11, 1fr);
+      }
+
+      .results-metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .setup-header, .setup-body {
+        padding: 24px 20px;
+      }
+
+      .setup-stats, .duration-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .results-hero {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+        padding: 28px 20px;
+      }
+
+      .results-metrics, .results-actions {
+        padding: 20px;
+      }
+
+      .nav-grid {
+        grid-template-columns: repeat(8, 1fr);
+      }
+
+      .question-header, .question-body, .question-footer {
+        padding: 18px;
+      }
+
+      .question-text {
+        font-size: 1.12rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== 1. PRE-EXAM SETUP SCREEN ==================== -->
+  <section id="setup-screen" class="screen">
+    <div class="setup-wrapper">
+      <div class="setup-card">
+        <div class="setup-header">
+          <div class="setup-eyebrow">Standardized Assessment Portal</div>
+          <h1 class="setup-title">Computer Fundamentals MCQ Examination</h1>
+          <p class="setup-subtitle">
+            Evaluate your foundational knowledge of web concepts, Windows operations, Microsoft Office applications, and Google Workspace tools.
+          </p>
+          <div class="setup-stats">
+            <div class="stat-pill">
+              <div class="stat-pill-label">Total Questions</div>
+              <div class="stat-pill-value" id="setup-total-q">44 Questions</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-pill-label">Passing Threshold</div>
+              <div class="stat-pill-value">60% Required</div>
+            </div>
+            <div class="stat-pill">
+              <div class="stat-pill-label">Question Format</div>
+              <div class="stat-pill-value">Single Choice</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="setup-body">
+          <div>
+            <div class="section-label">Select Examination Duration</div>
+            <div class="duration-grid" role="radiogroup" aria-label="Examination Duration">
+              <button type="button" class="duration-option selected" data-minutes="30" aria-checked="true" role="radio">
+                <div>
+                  <div class="duration-title">30 Minutes</div>
+                  <div class="duration-desc">Standard timed assessment (~40 sec/question)</div>
+                </div>
+                <span class="radio-dot" aria-hidden="true"></span>
+              </button>
+              <button type="button" class="duration-option" data-minutes="60" aria-checked="false" role="radio">
+                <div>
+                  <div class="duration-title">1 Hour (60 Minutes)</div>
+                  <div class="duration-desc">Extended pace for thorough review</div>
+                </div>
+                <span class="radio-dot" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+
+          <div>
+            <div class="section-label">Examination Rules &amp; Integrity Policy</div>
+            <div class="rules-box">
+              <ul class="rules-list">
+                <li>
+                  <span class="rule-bullet"></span>
+                  <span><strong>Randomized Assessment:</strong> Questions and answer choices are shuffled independently every time a new examination begins.</span>
+                </li>
+                <li>
+                  <span class="rule-bullet"></span>
+                  <span><strong>Strict Focus Enforcement:</strong> Switching browser tabs, minimizing the window, or exiting fullscreen mode will <strong>immediately terminate</strong> the examination with a <strong>FAILED</strong> status.</span>
+                </li>
+                <li>
+                  <span class="rule-bullet"></span>
+                  <span><strong>Complete Submission:</strong> All 44 questions must be answered before submitting, unless the countdown timer reaches 00:00 (automatic submission).</span>
+                </li>
+                <li>
+                  <span class="rule-bullet"></span>
+                  <span><strong>Post-Exam Review:</strong> Full answer explanations and performance analytics are unlocked immediately after completion.</span>
+                </li>
+              </ul>
+              <p class="simulation-note">
+                Note: Fullscreen and tab-visibility restrictions are client-side browser simulations designed for practice proctoring and are not tamper-proof against external OS-level tools.
+              </p>
+            </div>
+          </div>
+
+          <div class="setup-footer">
+            <span class="ready-hint">Clicking Start will automatically enter fullscreen mode.</span>
+            <button type="button" id="start-exam-btn" class="btn btn-primary btn-lg">
+              Start Examination
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. ACTIVE EXAMINATION SCREEN ==================== -->
+  <section id="exam-screen" class="screen hidden">
+    <div class="exam-layout">
+      <header class="exam-topbar">
+        <div class="topbar-left">
+          <span class="badge badge-accent">Live Exam</span>
+          <div class="topbar-title">Computer Fundamentals MCQ</div>
+        </div>
+
+        <div class="topbar-center">
+          <div class="progress-meta">
+            <span id="progress-label">0 of 44 Answered</span>
+            <span id="progress-percent">0%</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="timer-pill" id="timer-display" aria-live="polite" title="Remaining Time">
+            <span>30:00</span>
+          </div>
+          <button type="button" id="submit-exam-btn" class="btn btn-primary">
+            Submit Examination
+          </button>
+        </div>
+      </header>
+
+      <div id="fullscreen-warning-banner" class="warning-banner hidden" role="alert">
+        <span id="fullscreen-warning-text">
+          Fullscreen mode could not be activated by your browser. Please remain on this tab—tab-switching monitoring is active.
+        </span>
+        <button type="button" id="retry-fullscreen-btn" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">
+          Enable Fullscreen
+        </button>
+      </div>
+
+      <main class="exam-main">
+        <div class="question-panel">
+          <div class="question-header">
+            <div class="question-counter" id="question-counter">Question 1 of 44</div>
+            <span class="badge badge-neutral" id="question-status-badge">Unanswered</span>
+          </div>
+
+          <div class="question-body">
+            <h2 class="question-text" id="question-text"></h2>
+            <div class="options-list" id="options-container" role="radiogroup" aria-label="Answer choices"></div>
+          </div>
+
+          <div class="question-footer">
+            <button type="button" id="prev-btn" class="btn btn-secondary">
+              &larr; Previous
+            </button>
+            <button type="button" id="next-btn" class="btn btn-primary">
+              Next &rarr;
+            </button>
+          </div>
+        </div>
+
+        <aside class="navigator-panel" aria-label="Question Navigator">
+          <div class="nav-header">
+            <div class="nav-title">Question Navigator</div>
+          </div>
+          <div class="nav-summary">
+            <div class="nav-stat">
+              <div class="nav-stat-num" id="nav-answered-count">0</div>
+              <div class="nav-stat-label">Answered</div>
+            </div>
+            <div class="nav-stat">
+              <div class="nav-stat-num" id="nav-remaining-count">44</div>
+              <div class="nav-stat-label">Remaining</div>
+            </div>
+          </div>
+          <div class="nav-grid" id="nav-grid"></div>
+          <div class="nav-legend">
+            <span class="legend-item"><span class="legend-swatch swatch-current"></span>Current</span>
+            <span class="legend-item"><span class="legend-swatch swatch-answered"></span>Answered</span>
+            <span class="legend-item"><span class="legend-swatch swatch-unanswered"></span>Unanswered</span>
+          </div>
+        </aside>
+      </main>
+    </div>
+  </section>
+
+  <!-- ==================== 3. RESULTS SCREEN ==================== -->
+  <section id="results-screen" class="screen hidden">
+    <div class="results-wrapper">
+      <div class="results-card">
+        <div id="termination-banner" class="termination-banner hidden" role="alert">
+          <div class="termination-title">EXAMINATION TERMINATED</div>
+          <div class="termination-msg" id="termination-reason-text">
+            You left the examination window. Your examination has been terminated due to a violation of the examination rules.
+          </div>
+        </div>
+
+        <div class="results-hero">
+          <div class="score-ring-wrap">
+            <svg class="score-ring-svg" viewBox="0 0 140 140">
+              <circle class="ring-bg" cx="70" cy="70" r="60"></circle>
+              <circle class="ring-progress" id="score-ring-circle" cx="70" cy="70" r="60"></circle>
+            </svg>
+            <div class="score-ring-center">
+              <div class="score-percent" id="result-percent">0%</div>
+              <div class="score-sub">Score</div>
+            </div>
+          </div>
+
+          <div class="results-status-block">
+            <span class="badge" id="result-status-badge">PASS</span>
+            <h1 id="result-headline">Examination Complete</h1>
+            <p id="result-subtext"></p>
+          </div>
+        </div>
+
+        <div class="results-metrics">
+          <div class="metric-box">
+            <div class="metric-label">Total</div>
+            <div class="metric-val" id="metric-total">44</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Correct</div>
+            <div class="metric-val green" id="metric-correct">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Incorrect</div>
+            <div class="metric-val red" id="metric-incorrect">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Unanswered</div>
+            <div class="metric-val amber" id="metric-unanswered">0</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-label">Time Taken</div>
+            <div class="metric-val" id="metric-time">00:00</div>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button type="button" id="retake-exam-btn" class="btn btn-secondary">
+            Start New Examination
+          </button>
+          <button type="button" id="review-answers-btn" class="btn btn-primary">
+            Review All Answers
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 4. ANSWER REVIEW SCREEN ==================== -->
+  <section id="review-screen" class="screen hidden">
+    <div class="review-layout">
+      <div class="review-topbar">
+        <div>
+          <div class="review-heading">Answer Review</div>
+          <div style="font-size: 0.84rem; color: var(--text-secondary);" id="review-subtitle">
+            Displayed in the exact order presented during your examination
+          </div>
+        </div>
+        <button type="button" id="back-to-results-btn" class="btn btn-secondary">
+          &larr; Return to Results Summary
+        </button>
+      </div>
+
+      <div class="filter-bar" id="review-filters">
+        <button type="button" class="filter-btn active" data-filter="all">All</button>
+        <button type="button" class="filter-btn" data-filter="correct">Correct</button>
+        <button type="button" class="filter-btn" data-filter="incorrect">Incorrect</button>
+        <button type="button" class="filter-btn" data-filter="unanswered">Unanswered</button>
+      </div>
+
+      <div class="review-list" id="review-list"></div>
+    </div>
+  </section>
+
+  <!-- ==================== MODAL DIALOG ==================== -->
+  <div id="modal-backdrop" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <h3 class="modal-title" id="modal-title"></h3>
+      <p class="modal-text" id="modal-text"></p>
+      <div class="modal-actions" id="modal-actions"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      /* ==================== QUESTION BANK (ALL 44 QUESTIONS) ==================== */
+      const QUESTION_BANK = [
+        {
+          id: 1,
+          question: "What is a URL?",
+          correct: "The unique web address used to locate a specific webpage or resource on the internet",
+          distractors: [
+            "A software program used to design and code websites offline",
+            "A security protocol that encrypts files stored on a local hard drive",
+            "A hardware device that connects a computer to a wireless router"
+          ],
+          explanation: "A URL (Uniform Resource Locator) is the complete address—such as https://example.com—that tells your browser exactly where to find a resource on the web."
+        },
+        {
+          id: 2,
+          question: "What is a browser?",
+          correct: "A software application used to access, retrieve, and view websites on the internet",
+          distractors: [
+            "An online database that indexes webpages and ranks search results",
+            "An operating system utility that manages local folders and hard drives",
+            "A network cable that transfers data between a modem and a computer"
+          ],
+          explanation: "Web browsers like Google Chrome, Microsoft Edge, Firefox, and Safari render HTML, CSS, and JavaScript so you can interact with websites."
+        },
+        {
+          id: 3,
+          question: "What is a search engine?",
+          correct: "A web-based service that indexes internet content and helps users find information using keywords",
+          distractors: [
+            "A desktop application required to open PDF and Word documents",
+            "A computer component that increases processor speed during browsing",
+            "A private email client used to send messages within an office network"
+          ],
+          explanation: "Search engines such as Google Search and Bing crawl and index websites so users can quickly locate relevant pages by typing queries."
+        },
+        {
+          id: 4,
+          question: "What is Gmail?",
+          correct: "Google's web-based email service for sending, receiving, and managing electronic mail",
+          distractors: [
+            "Google's cloud spreadsheet program for performing financial calculations",
+            "Microsoft's desktop application for creating business presentations",
+            "A web browser developed by Google for mobile and desktop devices"
+          ],
+          explanation: "Gmail is Google's email platform, offering cloud-based inbox storage, spam filtering, and integration with Google Workspace."
+        },
+        {
+          id: 5,
+          question: "Why do you use Gmail?",
+          correct: "To send, receive, organize, and store electronic messages and file attachments online",
+          distractors: [
+            "To edit high-resolution videos and render 3D animations locally",
+            "To install operating system drivers and manage computer hardware",
+            "To compile programming source code into executable desktop apps"
+          ],
+          explanation: "Gmail is primarily used for digital communication—sending and receiving emails, sharing attachments, and organizing correspondence with labels and search."
+        },
+        {
+          id: 6,
+          question: "How do you freeze the top row in MS Excel?",
+          correct: "Go to the View tab, click Freeze Panes, and select Freeze Top Row",
+          distractors: [
+            "Go to the Insert tab, click Lock Header, and select Top Row",
+            "Go to the Home tab, click Format Cells, and choose Pin Row",
+            "Go to the Data tab, click Filter, and select Hold First Row"
+          ],
+          explanation: "In Excel, View → Freeze Panes → Freeze Top Row keeps Row 1 visible while you scroll vertically through the rest of the worksheet."
+        },
+        {
+          id: 7,
+          question: "What is the default file extension for Microsoft Word?",
+          correct: ".docx",
+          distractors: [
+            ".xlsx",
+            ".pptx",
+            ".txt"
+          ],
+          explanation: "Modern versions of Microsoft Word save documents using the Open XML format with the .docx file extension."
+        },
+        {
+          id: 8,
+          question: "What is the default file extension for MS Excel?",
+          correct: ".xlsx",
+          distractors: [
+            ".docx",
+            ".pptx",
+            ".csvx"
+          ],
+          explanation: "Microsoft Excel workbooks are saved by default with the .xlsx file extension."
+        },
+        {
+          id: 9,
+          question: "What is the default file extension for MS PowerPoint?",
+          correct: ".pptx",
+          distractors: [
+            ".docx",
+            ".xlsx",
+            ".ppsd"
+          ],
+          explanation: "Standard Microsoft PowerPoint presentations use the .pptx file extension."
+        },
+        {
+          id: 10,
+          question: "What is the full form of PDF?",
+          correct: "Portable Document Format",
+          distractors: [
+            "Personal Data File",
+            "Printed Document Form",
+            "Public Digital Format"
+          ],
+          explanation: "PDF stands for Portable Document Format, designed to preserve document formatting consistently across different devices and operating systems."
+        },
+        {
+          id: 11,
+          question: "What is the full form of URL?",
+          correct: "Uniform Resource Locator",
+          distractors: [
+            "Universal Reference Link",
+            "Unified Routing Language",
+            "User Resource Library"
+          ],
+          explanation: "URL stands for Uniform Resource Locator, the standardized address format used to locate resources on the web."
+        },
+        {
+          id: 12,
+          question: "How do you copy selected text in MS Word?",
+          correct: "Press Ctrl + C",
+          distractors: [
+            "Press Ctrl + X",
+            "Press Ctrl + V",
+            "Press Ctrl + P"
+          ],
+          explanation: "Ctrl + C copies the selected text or object to the clipboard without removing it from its original location."
+        },
+        {
+          id: 13,
+          question: "How do you cut selected text in MS Word?",
+          correct: "Press Ctrl + X",
+          distractors: [
+            "Press Ctrl + C",
+            "Press Ctrl + Z",
+            "Press Ctrl + K"
+          ],
+          explanation: "Ctrl + X removes the selected content from its current position and places it on the clipboard so it can be pasted elsewhere."
+        },
+        {
+          id: 14,
+          question: "How do you paste copied or cut content in an MS application or anywhere on a Windows computer?",
+          correct: "Press Ctrl + V",
+          distractors: [
+            "Press Ctrl + P",
+            "Press Ctrl + C",
+            "Press Ctrl + B"
+          ],
+          explanation: "Ctrl + V inserts the most recently copied or cut item from the clipboard into the active cursor location."
+        },
+        {
+          id: 15,
+          question: "How do you create a folder using a mouse in Windows?",
+          correct: "Right-click an empty space, hover over New, and click Folder",
+          distractors: [
+            "Double-click an empty space on the desktop and press Enter",
+            "Left-click the Recycle Bin and select Add Directory",
+            "Right-click the Taskbar, select Properties, and click Create Folder"
+          ],
+          explanation: "In Windows File Explorer or on the desktop, right-clicking an empty area and selecting New → Folder immediately creates a new folder."
+        },
+        {
+          id: 16,
+          question: "What is the Windows keyboard shortcut for creating a new folder automatically?",
+          correct: "Ctrl + Shift + N",
+          distractors: [
+            "Ctrl + Alt + F",
+            "Ctrl + N",
+            "Alt + Shift + D"
+          ],
+          explanation: "Pressing Ctrl + Shift + N in Windows File Explorer or on the desktop creates a new folder ready to be named."
+        },
+        {
+          id: 17,
+          question: "How do you save a file in an MS application such as MS Word?",
+          correct: "Press Ctrl + S",
+          distractors: [
+            "Press Ctrl + F",
+            "Press Ctrl + W",
+            "Press Ctrl + A"
+          ],
+          explanation: "Ctrl + S saves changes to the current document (or opens the Save dialog if the file has not been saved yet)."
+        },
+        {
+          id: 18,
+          question: "How do you rename a selected file or folder in Windows?",
+          correct: "Press F2, or right-click the item and select Rename",
+          distractors: [
+            "Press F5, or right-click the item and select Refresh",
+            "Press Ctrl + R, or double-click the file icon quickly",
+            "Press Alt + F4, or right-click the item and select Properties"
+          ],
+          explanation: "Selecting a file or folder and pressing F2—or choosing Rename from the right-click context menu—highlights the name for editing."
+        },
+        {
+          id: 19,
+          question: "Which function is used to sum a row of data in MS Excel?",
+          correct: "SUM (for example, =SUM(A1:E1))",
+          distractors: [
+            "ADD (for example, =ADD(A1:E1))",
+            "TOTAL (for example, =TOTAL(A1:E1))",
+            "COUNT (for example, =COUNT(A1:E1))"
+          ],
+          explanation: "The SUM function adds all numeric values within a specified cell range, such as =SUM(A1:E1)."
+        },
+        {
+          id: 20,
+          question: "Which function is used to calculate the average of a row of data in MS Excel?",
+          correct: "AVERAGE (for example, =AVERAGE(A1:E1))",
+          distractors: [
+            "MEAN (for example, =MEAN(A1:E1))",
+            "AVG (for example, =AVG(A1:E1))",
+            "MEDIAN (for example, =MEDIAN(A1:E1))"
+          ],
+          explanation: "Excel uses the full word AVERAGE to calculate the arithmetic mean of the numeric values in a range."
+        },
+        {
+          id: 21,
+          question: "How do you duplicate a selected PowerPoint slide using a keyboard shortcut?",
+          correct: "Press Ctrl + D",
+          distractors: [
+            "Press Ctrl + M",
+            "Press Ctrl + Shift + S",
+            "Press Alt + D"
+          ],
+          explanation: "With a slide selected in the thumbnail pane, Ctrl + D immediately duplicates that slide. (Ctrl + M inserts a new blank slide.)"
+        },
+        {
+          id: 22,
+          question: "Why do you use a Google Account?",
+          correct: "To sign in and access Google services such as Gmail, Drive, Docs, and YouTube with a single account",
+          distractors: [
+            "To activate a Windows operating system license on a desktop computer",
+            "To directly edit local system registry settings on a laptop",
+            "To replace your internet service provider and connect without Wi-Fi"
+          ],
+          explanation: "A single Google Account provides unified sign-in and cloud synchronization across Gmail, Google Drive, Google Docs, Sheets, Calendar, and more."
+        },
+        {
+          id: 23,
+          question: "Which one of the following is a Google-associated application?",
+          correct: "Google Drive",
+          distractors: [
+            "Microsoft OneDrive",
+            "Apple Keynote",
+            "Adobe Photoshop"
+          ],
+          explanation: "Google Drive is Google's cloud storage and file synchronization service, part of Google Workspace."
+        },
+        {
+          id: 24,
+          question: "What is the Google alternative to MS Word?",
+          correct: "Google Docs",
+          distractors: [
+            "Google Sheets",
+            "Google Slides",
+            "Google Keep"
+          ],
+          explanation: "Google Docs is Google's cloud-based word processor, serving as the direct alternative to Microsoft Word."
+        },
+        {
+          id: 25,
+          question: "What is the Google alternative to MS Excel?",
+          correct: "Google Sheets",
+          distractors: [
+            "Google Docs",
+            "Google Forms",
+            "Google Tables"
+          ],
+          explanation: "Google Sheets is Google's web-based spreadsheet application, corresponding to Microsoft Excel."
+        },
+        {
+          id: 26,
+          question: "Which shortcut quickly aligns text or a paragraph to the center in MS Word?",
+          correct: "Ctrl + E",
+          distractors: [
+            "Ctrl + C",
+            "Ctrl + M",
+            "Ctrl + L"
+          ],
+          explanation: "In MS Word, Ctrl + E centers the selected text or paragraph because Ctrl + C is reserved for Copy."
+        },
+        {
+          id: 27,
+          question: "Which shortcut is used to select the entire column you are currently working in within MS Excel?",
+          correct: "Ctrl + Space",
+          distractors: [
+            "Shift + Space",
+            "Alt + Space",
+            "Ctrl + Shift + C"
+          ],
+          explanation: "Ctrl + Space selects the entire column of the active cell in Excel. (Shift + Space selects the entire row.)"
+        },
+        {
+          id: 28,
+          question: "Which key starts a slide show from the very beginning in MS PowerPoint?",
+          correct: "F5",
+          distractors: [
+            "F2",
+            "F7",
+            "F12"
+          ],
+          explanation: "Pressing F5 starts the PowerPoint presentation from Slide 1. (Shift + F5 starts from the currently selected slide.)"
+        },
+        {
+          id: 29,
+          question: "How do you select an entire word by clicking with a mouse?",
+          correct: "Double-click on the word",
+          distractors: [
+            "Single-click on the word",
+            "Triple-click on the word",
+            "Right-click on the word"
+          ],
+          explanation: "Double-clicking highlights a single word, whereas triple-clicking selects the entire paragraph."
+        },
+        {
+          id: 30,
+          question: "Which tab do you select to add visual effects between individual slides in MS PowerPoint?",
+          correct: "Transitions",
+          distractors: [
+            "Animations",
+            "Design",
+            "Slide Show"
+          ],
+          explanation: "The Transitions tab controls visual effects that occur when moving from one slide to the next. (Animations apply to individual objects on a slide.)"
+        },
+        {
+          id: 31,
+          question: "Which view in MS Word allows you to see how your document will look when printed?",
+          correct: "Print Layout",
+          distractors: [
+            "Web Layout",
+            "Draft",
+            "Outline"
+          ],
+          explanation: "Print Layout displays pages with margins, headers, footers, and page breaks exactly as they will appear on printed paper."
+        },
+        {
+          id: 32,
+          question: "Which shortcut combination is used to select all the text in a document at once?",
+          correct: "Ctrl + A",
+          distractors: [
+            "Ctrl + S",
+            "Ctrl + Shift + E",
+            "Alt + A"
+          ],
+          explanation: "Ctrl + A stands for Select All and highlights every piece of text and object in the active document."
+        },
+        {
+          id: 33,
+          question: "How do you change the page orientation from Portrait to Landscape in MS Word?",
+          correct: "Go to the Layout tab, click Orientation, and select Landscape",
+          distractors: [
+            "Go to the View tab, click Page Zoom, and select Horizontal",
+            "Go to the Insert tab, click Page Setup, and select Wide",
+            "Go to the Design tab, click Page Borders, and select Landscape"
+          ],
+          explanation: "Page orientation (Portrait or Landscape) is located under the Layout tab in the Page Setup group."
+        },
+        {
+          id: 34,
+          question: "Which ribbon tab in MS Word lets you add a header or footer to the document?",
+          correct: "Insert",
+          distractors: [
+            "Home",
+            "References",
+            "Review"
+          ],
+          explanation: "The Insert tab contains the Header & Footer group for adding headers, footers, and page numbers."
+        },
+        {
+          id: 35,
+          question: "Which Excel feature combines multiple adjacent cells into one larger cell?",
+          correct: "Merge & Center",
+          distractors: [
+            "Wrap Text",
+            "Freeze Panes",
+            "Conditional Formatting"
+          ],
+          explanation: "Merge & Center combines selected adjacent cells into a single cell and centers the text. Note that merging is not always necessary to combine data—formulas like CONCAT or Center Across Selection are often better for sorting and calculations."
+        },
+        {
+          id: 36,
+          question: "Which keyboard shortcut makes selected text or letters bold?",
+          correct: "Ctrl + B",
+          distractors: [
+            "Ctrl + I",
+            "Ctrl + U",
+            "Ctrl + D"
+          ],
+          explanation: "Ctrl + B toggles bold formatting on or off for the selected text."
+        },
+        {
+          id: 37,
+          question: "Which tab do you select to insert an image or picture into your PowerPoint presentation?",
+          correct: "Insert",
+          distractors: [
+            "Home",
+            "Design",
+            "View"
+          ],
+          explanation: "The Insert tab contains the Pictures command for adding images from your device, stock library, or online sources."
+        },
+        {
+          id: 38,
+          question: "Which feature automatically detects and corrects common typos as you type in MS Word?",
+          correct: "AutoCorrect",
+          distractors: [
+            "Track Changes",
+            "Mail Merge",
+            "Format Painter"
+          ],
+          explanation: "AutoCorrect automatically fixes frequent spelling mistakes and capitalization errors (such as changing 'teh' to 'the') as you type."
+        },
+        {
+          id: 39,
+          question: "Which function returns the maximum (highest) number from a row of data in MS Excel?",
+          correct: "MAX",
+          distractors: [
+            "HIGH",
+            "TOP",
+            "UPPER"
+          ],
+          explanation: "The MAX function—for example, =MAX(A1:E1)—returns the largest numeric value in the specified range."
+        },
+        {
+          id: 40,
+          question: "Which function returns the minimum (lowest) number from a row of data in MS Excel?",
+          correct: "MIN",
+          distractors: [
+            "LOW",
+            "SMALLEST",
+            "BOTTOM"
+          ],
+          explanation: "The MIN function—for example, =MIN(A1:E1)—returns the smallest numeric value in the specified range."
+        },
+        {
+          id: 41,
+          question: "Which ribbon tab in MS Word contains the options to add a numbered or bulleted list?",
+          correct: "Home",
+          distractors: [
+            "Insert",
+            "Layout",
+            "References"
+          ],
+          explanation: "Bullets and Numbering tools are located in the Paragraph group on the Home tab."
+        },
+        {
+          id: 42,
+          question: "Which feature allows you to add space between two paragraphs in MS Word?",
+          correct: "Paragraph Spacing (found in Paragraph formatting under the Home or Layout tab)",
+          distractors: [
+            "Character Kerning (found in Font Effects)",
+            "Page Margins (found under the Review tab)",
+            "Column Breaks (found under the Insert tab)"
+          ],
+          explanation: "Paragraph Spacing (Before and After settings) controls the vertical space between paragraphs and is accessible from the Home tab's Line and Paragraph Spacing menu or the Layout tab."
+        },
+        {
+          id: 43,
+          question: "Which shortcut opens the Find and Replace dialog box in MS Word?",
+          correct: "Ctrl + H",
+          distractors: [
+            "Ctrl + F",
+            "Ctrl + R",
+            "Ctrl + G"
+          ],
+          explanation: "Ctrl + H opens the Find and Replace dialog box directly on the Replace tab. (Ctrl + F opens the Navigation/Find pane.)"
+        },
+        {
+          id: 44,
+          question: "Which shortcut combination lets you add a line break within a single cell in MS Excel (Windows)?",
+          correct: "Alt + Enter",
+          distractors: [
+            "Ctrl + Enter",
+            "Shift + Enter",
+            "Tab + Enter"
+          ],
+          explanation: "Pressing Alt + Enter while editing a cell in Excel on Windows starts a new line inside that same cell without moving to the cell below."
+        }
+      ];
+
+      /* ==================== STATE ==================== */
+      const PASS_THRESHOLD = 60;
+      const OPTION_LETTERS = ["A", "B", "C", "D"];
+
+      const state = {
+        selectedMinutes: 30,
+        active: false,
+        isStarting: false,
+        fullscreenArmed: false,
+        terminated: false,
+        terminationReason: "",
+        autoSubmitted: false,
+        sessionQuestions: [],
+        answers: {}, // { [sessionIndex]: selectedOptionIndex }
+        currentIndex: 0,
+        startTimeMs: 0,
+        endTimeMs: 0,
+        timeTakenSeconds: 0,
+        timerInterval: null,
+        activeReviewFilter: "all"
+      };
+
+      /* ==================== DOM REFERENCES ==================== */
+      const screens = {
+        setup: document.getElementById("setup-screen"),
+        exam: document.getElementById("exam-screen"),
+        results: document.getElementById("results-screen"),
+        review: document.getElementById("review-screen")
+      };
+
+      const el = {
+        setupTotalQ: document.getElementById("setup-total-q"),
+        durationBtns: document.querySelectorAll(".duration-option"),
+        startBtn: document.getElementById("start-exam-btn"),
+
+        progressLabel: document.getElementById("progress-label"),
+        progressPercent: document.getElementById("progress-percent"),
+        progressFill: document.getElementById("progress-fill"),
+        timerDisplay: document.getElementById("timer-display"),
+        submitBtn: document.getElementById("submit-exam-btn"),
+        fsWarningBanner: document.getElementById("fullscreen-warning-banner"),
+        fsWarningText: document.getElementById("fullscreen-warning-text"),
+        retryFsBtn: document.getElementById("retry-fullscreen-btn"),
+
+        qCounter: document.getElementById("question-counter"),
+        qStatusBadge: document.getElementById("question-status-badge"),
+        qText: document.getElementById("question-text"),
+        optionsContainer: document.getElementById("options-container"),
+        prevBtn: document.getElementById("prev-btn"),
+        nextBtn: document.getElementById("next-btn"),
+
+        navAnswered: document.getElementById("nav-answered-count"),
+        navRemaining: document.getElementById("nav-remaining-count"),
+        navGrid: document.getElementById("nav-grid"),
+
+        terminationBanner: document.getElementById("termination-banner"),
+        terminationReasonText: document.getElementById("termination-reason-text"),
+        scoreRingCircle: document.getElementById("score-ring-circle"),
+        resultPercent: document.getElementById("result-percent"),
+        resultStatusBadge: document.getElementById("result-status-badge"),
+        resultHeadline: document.getElementById("result-headline"),
+        resultSubtext: document.getElementById("result-subtext"),
+        metricTotal: document.getElementById("metric-total"),
+        metricCorrect: document.getElementById("metric-correct"),
+        metricIncorrect: document.getElementById("metric-incorrect"),
+        metricUnanswered: document.getElementById("metric-unanswered"),
+        metricTime: document.getElementById("metric-time"),
+        retakeBtn: document.getElementById("retake-exam-btn"),
+        reviewBtn: document.getElementById("review-answers-btn"),
+
+        backToResultsBtn: document.getElementById("back-to-results-btn"),
+        reviewFilters: document.getElementById("review-filters"),
+        reviewList: document.getElementById("review-list"),
+
+        modalBackdrop: document.getElementById("modal-backdrop"),
+        modalTitle: document.getElementById("modal-title"),
+        modalText: document.getElementById("modal-text"),
+        modalActions: document.getElementById("modal-actions")
+      };
+
+      /* ==================== UTILITIES ==================== */
+      function shuffleArray(arr) {
+        const copy = arr.slice();
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      }
+
+      function formatTimeMMSS(totalSeconds) {
+        const safe = Math.max(0, Math.floor(totalSeconds));
+        const mins = Math.floor(safe / 60);
+        const secs = safe % 60;
+        return String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+      }
+
+      function showScreen(name) {
+        Object.keys(screens).forEach((key) => {
+          screens[key].classList.toggle("hidden", key !== name);
+        });
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+
+      function openModal(title, text, actions) {
+        el.modalTitle.textContent = title;
+        el.modalText.textContent = text;
+        el.modalActions.innerHTML = "";
+        actions.forEach((act) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "btn " + (act.variant || "btn-secondary");
+          btn.textContent = act.label;
+          btn.addEventListener("click", () => {
+            closeModal();
+            if (act.onClick) act.onClick();
+          });
+          el.modalActions.appendChild(btn);
+        });
+        el.modalBackdrop.classList.remove("hidden");
+      }
+
+      function closeModal() {
+        el.modalBackdrop.classList.add("hidden");
+      }
+
+      function buildSessionQuestions() {
+        const shuffledQuestions = shuffleArray(QUESTION_BANK);
+        return shuffledQuestions.map((item) => {
+          const rawOptions = [
+            { text: item.correct, isCorrect: true },
+            ...item.distractors.map((d) => ({ text: d, isCorrect: false }))
+          ];
+          return {
+            id: item.id,
+            question: item.question,
+            explanation: item.explanation,
+            options: shuffleArray(rawOptions)
+          };
+        });
+      }
+
+      function getAnsweredCount() {
+        return Object.keys(state.answers).length;
+      }
+
+      function getFirstUnansweredIndex() {
+        for (let i = 0; i < state.sessionQuestions.length; i++) {
+          if (state.answers[i] === undefined) return i;
+        }
+        return -1;
+      }
+
+      /* ==================== FULLSCREEN & ANTI-CHEATING ==================== */
+      function getFullscreenElement() {
+        return document.fullscreenElement || document.webkitFullscreenElement || null;
+      }
+
+      function requestAppFullscreen() {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) {
+          return docEl.requestFullscreen();
+        }
+        if (docEl.webkitRequestFullscreen) {
+          return Promise.resolve(docEl.webkitRequestFullscreen());
+        }
+        return Promise.reject(new Error("Fullscreen API unsupported"));
+      }
+
+      function exitAppFullscreen() {
+        if (!getFullscreenElement()) return;
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {});
+        } else if (document.webkitExitFullscreen) {
+          try { document.webkitExitFullscreen(); } catch (_) {}
+        }
+      }
+
+      function handleFullscreenChange() {
+        if (!state.active) return;
+
+        if (getFullscreenElement()) {
+          state.fullscreenArmed = true;
+          el.fsWarningBanner.classList.add("hidden");
+        } else if (state.fullscreenArmed) {
+          terminateExam("You exited fullscreen mode before completing the examination. Your examination has been terminated due to a violation of the examination rules.");
+        }
+      }
+
+      function handleVisibilityChange() {
+        if (!state.active || state.isStarting) return;
+        if (document.visibilityState === "hidden") {
+          terminateExam("You left the examination window. Your examination has been terminated due to a violation of the examination rules.");
+        }
+      }
+
+      document.addEventListener("fullscreenchange", handleFullscreenChange);
+      document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      /* ==================== EXAM LIFECYCLE ==================== */
+      function startExam() {
+        // Reset session state
+        state.sessionQuestions = buildSessionQuestions();
+        state.answers = {};
+        state.currentIndex = 0;
+        state.terminated = false;
+        state.terminationReason = "";
+        state.autoSubmitted = false;
+        state.fullscreenArmed = false;
+        state.isStarting = true;
+        state.active = true;
+
+        const durationSeconds = state.selectedMinutes * 60;
+        state.startTimeMs = Date.now();
+        state.endTimeMs = state.startTimeMs + durationSeconds * 1000;
+        state.timeTakenSeconds = 0;
+
+        el.fsWarningBanner.classList.add("hidden");
+
+        // Initiate fullscreen directly from the Start button click gesture
+        requestAppFullscreen()
+          .then(() => {
+            if (state.active && getFullscreenElement()) {
+              state.fullscreenArmed = true;
+            }
+          })
+          .catch(() => {
+            if (state.active) {
+              state.fullscreenArmed = false;
+              el.fsWarningText.textContent =
+                "Fullscreen mode was unavailable or declined by your browser. Tab-switching monitoring remains active—please do not leave this window.";
+              el.fsWarningBanner.classList.remove("hidden");
+            }
+          });
+
+        // Brief grace window so OS fullscreen animations do not trigger false visibility violations
+        setTimeout(() => {
+          state.isStarting = false;
+        }, 450);
+
+        showScreen("exam");
+        renderNavigator();
+        renderCurrentQuestion();
+        updateProgressUI();
+        startTimer();
+      }
+
+      function startTimer() {
+        clearInterval(state.timerInterval);
+        updateTimerDisplay();
+        state.timerInterval = setInterval(updateTimerDisplay, 250);
+      }
+
+      function updateTimerDisplay() {
+        if (!state.active) return;
+        const remainingMs = state.endTimeMs - Date.now();
+        const remainingSec = Math.max(0, Math.ceil(remainingMs / 1000));
+
+        el.timerDisplay.textContent = formatTimeMMSS(remainingSec);
+        el.timerDisplay.classList.remove("warning", "critical");
+        if (remainingSec <= 60) {
+          el.timerDisplay.classList.add("critical");
+        } else if (remainingSec <= 300) {
+          el.timerDisplay.classList.add("warning");
+        }
+
+        if (remainingSec <= 0) {
+          finishExam({ autoSubmitted: true });
+        }
+      }
+
+      function terminateExam(reason) {
+        if (!state.active) return;
+        state.active = false;
+        state.terminated = true;
+        state.terminationReason = reason;
+        clearInterval(state.timerInterval);
+        closeModal();
+
+        const elapsed = Math.round((Date.now() - state.startTimeMs) / 1000);
+        const maxSec = state.selectedMinutes * 60;
+        state.timeTakenSeconds = Math.min(maxSec, Math.max(0, elapsed));
+
+        exitAppFullscreen();
+        renderResults();
+        showScreen("results");
+      }
+
+      function finishExam({ autoSubmitted = false } = {}) {
+        if (!state.active) return;
+        state.active = false;
+        state.autoSubmitted = autoSubmitted;
+        clearInterval(state.timerInterval);
+        closeModal();
+
+        const maxSec = state.selectedMinutes * 60;
+        const elapsed = autoSubmitted ? maxSec : Math.round((Date.now() - state.startTimeMs) / 1000);
+        state.timeTakenSeconds = Math.min(maxSec, Math.max(1, elapsed));
+
+        exitAppFullscreen();
+        renderResults();
+        showScreen("results");
+      }
+
+      /* ==================== EXAM RENDERING ==================== */
+      function renderCurrentQuestion() {
+        const total = state.sessionQuestions.length;
+        const idx = state.currentIndex;
+        const q = state.sessionQuestions[idx];
+        const selectedOpt = state.answers[idx];
+
+        el.qCounter.textContent = `Question ${idx + 1} of ${total}`;
+        el.qText.textContent = q.question;
+
+        if (selectedOpt !== undefined) {
+          el.qStatusBadge.textContent = "Answered";
+          el.qStatusBadge.className = "badge badge-accent";
+        } else {
+          el.qStatusBadge.textContent = "Unanswered";
+          el.qStatusBadge.className = "badge badge-neutral";
+        }
+
+        el.optionsContainer.innerHTML = "";
+        q.options.forEach((opt, optIdx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "option-btn" + (selectedOpt === optIdx ? " selected" : "");
+          btn.setAttribute("role", "radio");
+          btn.setAttribute("aria-checked", selectedOpt === optIdx ? "true" : "false");
+
+          const keySpan = document.createElement("span");
+          keySpan.className = "option-key";
+          keySpan.textContent = OPTION_LETTERS[optIdx];
+
+          const textSpan = document.createElement("span");
+          textSpan.className = "option-text";
+          textSpan.textContent = opt.text;
+
+          btn.appendChild(keySpan);
+          btn.appendChild(textSpan);
+
+          btn.addEventListener("click", () => selectOption(optIdx));
+          el.optionsContainer.appendChild(btn);
+        });
+
+        el.prevBtn.disabled = idx === 0;
+        el.nextBtn.disabled = idx === total - 1;
+        updateNavigatorHighlight();
+      }
+
+      function selectOption(optIdx) {
+        if (!state.active) return;
+        state.answers[state.currentIndex] = optIdx;
+        renderCurrentQuestion();
+        updateProgressUI();
+      }
+
+      function renderNavigator() {
+        el.navGrid.innerHTML = "";
+        state.sessionQuestions.forEach((_, idx) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "nav-cell";
+          btn.textContent = String(idx + 1);
+          btn.setAttribute("aria-label", `Go to question ${idx + 1}`);
+          btn.addEventListener("click", () => {
+            if (!state.active) return;
+            state.currentIndex = idx;
+            renderCurrentQuestion();
+          });
+          el.navGrid.appendChild(btn);
+        });
+      }
+
+      function updateNavigatorHighlight() {
+        const cells = el.navGrid.children;
+        for (let i = 0; i < cells.length; i++) {
+          const cell = cells[i];
+          const isCurrent = i === state.currentIndex;
+          const isAnswered = state.answers[i] !== undefined;
+          cell.classList.toggle("current", isCurrent);
+          cell.classList.toggle("answered", isAnswered && !isCurrent);
+        }
+      }
+
+      function updateProgressUI() {
+        const total = state.sessionQuestions.length;
+        const answered = getAnsweredCount();
+        const pct = Math.round((answered / total) * 100);
+
+        el.progressLabel.textContent = `${answered} of ${total} Answered`;
+        el.progressPercent.textContent = `${pct}%`;
+        el.progressFill.style.width = `${pct}%`;
+
+        el.navAnswered.textContent = String(answered);
+        el.navRemaining.textContent = String(total - answered);
+      }
+
+      function handleSubmitClick() {
+        if (!state.active) return;
+        const total = state.sessionQuestions.length;
+        const answered = getAnsweredCount();
+        const remaining = total - answered;
+
+        if (remaining > 0) {
+          openModal(
+            "Incomplete Examination",
+            `You still have ${remaining} unanswered question${remaining === 1 ? "" : "s"}. All ${total} questions must be completed before submitting.`,
+            [
+              { label: "Close", variant: "btn-secondary" },
+              {
+                label: "Jump to Unanswered",
+                variant: "btn-primary",
+                onClick: () => {
+                  const nextUnanswered = getFirstUnansweredIndex();
+                  if (nextUnanswered !== -1) {
+                    state.currentIndex = nextUnanswered;
+                    renderCurrentQuestion();
+                  }
+                }
+              }
+            ]
+          );
+          return;
+        }
+
+        openModal(
+          "Submit Examination?",
+          `You have answered all ${total} questions. Once submitted, you cannot change your answers.`,
+          [
+            { label: "Review Questions", variant: "btn-secondary" },
+            {
+              label: "Confirm & Submit",
+              variant: "btn-primary",
+              onClick: () => finishExam({ autoSubmitted: false })
+            }
+          ]
+        );
+      }
+
+      /* ==================== SCORING & RESULTS ==================== */
+      function computeResults() {
+        const total = state.sessionQuestions.length;
+        let correct = 0;
+        let incorrect = 0;
+        let unanswered = 0;
+
+        state.sessionQuestions.forEach((q, idx) => {
+          const selected = state.answers[idx];
+          if (selected === undefined) {
+            unanswered++;
+          } else if (q.options[selected].isCorrect) {
+            correct++;
+          } else {
+            incorrect++;
+          }
+        });
+
+        const percentage = Math.round((correct / total) * 100);
+        const passed = !state.terminated && percentage >= PASS_THRESHOLD;
+        return { total, correct, incorrect, unanswered, percentage, passed };
+      }
+
+      function renderResults() {
+        const res = computeResults();
+
+        // Termination banner
+        if (state.terminated) {
+          el.terminationBanner.classList.remove("hidden");
+          el.terminationReasonText.textContent = state.terminationReason;
+        } else {
+          el.terminationBanner.classList.add("hidden");
+        }
+
+        // Circular score ring
+        const radius = 60;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (res.percentage / 100) * circumference;
+        el.scoreRingCircle.style.strokeDasharray = `${circumference}`;
+        el.scoreRingCircle.style.strokeDashoffset = `${circumference}`;
+        el.scoreRingCircle.classList.remove("pass", "fail");
+        el.scoreRingCircle.classList.add(res.passed ? "pass" : "fail");
+
+        requestAnimationFrame(() => {
+          el.scoreRingCircle.style.strokeDashoffset = `${offset}`;
+        });
+
+        el.resultPercent.textContent = `${res.percentage}%`;
+
+        // Status badge & copy
+        if (state.terminated) {
+          el.resultStatusBadge.textContent = "FAILED";
+          el.resultStatusBadge.className = "badge badge-danger";
+          el.resultHeadline.textContent = "Result: FAILED (Rule Violation)";
+          el.resultSubtext.textContent =
+            "Your examination was terminated due to an integrity violation. Answers are locked and cannot be resumed.";
+        } else if (res.passed) {
+          el.resultStatusBadge.textContent = "PASS";
+          el.resultStatusBadge.className = "badge badge-success";
+          el.resultHeadline.textContent = "Congratulations, You Passed";
+          el.resultSubtext.textContent = state.autoSubmitted
+            ? `Time expired and your exam was automatically submitted. You exceeded the ${PASS_THRESHOLD}% passing threshold.`
+            : `You achieved ${res.percentage}%, exceeding the ${PASS_THRESHOLD}% passing requirement.`;
+        } else {
+          el.resultStatusBadge.textContent = "FAIL";
+          el.resultStatusBadge.className = "badge badge-danger";
+          el.resultHeadline.textContent = "Did Not Meet Passing Score";
+          el.resultSubtext.textContent = state.autoSubmitted
+            ? `Time expired and your exam was automatically submitted. A minimum score of ${PASS_THRESHOLD}% is required to pass.`
+            : `You scored ${res.percentage}%. A minimum score of ${PASS_THRESHOLD}% is required to pass. Review the explanations below to strengthen your fundamentals.`;
+        }
+
+        el.metricTotal.textContent = String(res.total);
+        el.metricCorrect.textContent = String(res.correct);
+        el.metricIncorrect.textContent = String(res.incorrect);
+        el.metricUnanswered.textContent = String(res.unanswered);
+        el.metricTime.textContent = formatTimeMMSS(state.timeTakenSeconds);
+      }
+
+      /* ==================== ANSWER REVIEW ==================== */
+      function renderReview(filter = "all") {
+        state.activeReviewFilter = filter;
+
+        // Update filter buttons with live counts
+        const res = computeResults();
+        const counts = {
+          all: res.total,
+          correct: res.correct,
+          incorrect: res.incorrect,
+          unanswered: res.unanswered
+        };
+
+        el.reviewFilters.querySelectorAll(".filter-btn").forEach((btn) => {
+          const f = btn.dataset.filter;
+          btn.classList.toggle("active", f === filter);
+          const label = f.charAt(0).toUpperCase() + f.slice(1);
+          btn.textContent = `${label} (${counts[f]})`;
+        });
+
+        el.reviewList.innerHTML = "";
+        let renderedCount = 0;
+
+        state.sessionQuestions.forEach((q, idx) => {
+          const selected = state.answers[idx];
+          const isUnanswered = selected === undefined;
+          const isCorrect = !isUnanswered && q.options[selected].isCorrect;
+          const status = isUnanswered ? "unanswered" : isCorrect ? "correct" : "incorrect";
+
+          if (filter !== "all" && filter !== status) return;
+          renderedCount++;
+
+          const card = document.createElement("article");
+          card.className = "review-card";
+
+          const head = document.createElement("div");
+          head.className = "review-card-head";
+
+          const qNum = document.createElement("span");
+          qNum.className = "review-q-num";
+          qNum.textContent = `Question ${idx + 1} of ${state.sessionQuestions.length}`;
+
+          const badge = document.createElement("span");
+          if (status === "correct") {
+            badge.className = "badge badge-success";
+            badge.textContent = "Correct";
+          } else if (status === "incorrect") {
+            badge.className = "badge badge-danger";
+            badge.textContent = "Incorrect";
+          } else {
+            badge.className = "badge badge-warning";
+            badge.textContent = "Unanswered";
+          }
+
+          head.appendChild(qNum);
+          head.appendChild(badge);
+
+          const qTitle = document.createElement("h3");
+          qTitle.className = "review-q-text";
+          qTitle.textContent = q.question;
+
+          const optsWrap = document.createElement("div");
+          optsWrap.className = "review-options";
+
+          q.options.forEach((opt, optIdx) => {
+            const row = document.createElement("div");
+            row.className = "review-opt";
+
+            const isUserPick = selected === optIdx;
+            let tagText = "";
+
+            if (opt.isCorrect) {
+              row.classList.add("is-correct");
+              tagText = isUserPick ? "Your Answer • Correct" : "Correct Answer";
+            } else if (isUserPick) {
+              row.classList.add("is-wrong");
+              tagText = "Your Answer";
+            }
+
+            const left = document.createElement("div");
+            left.className = "review-opt-left";
+
+            const letter = document.createElement("span");
+            letter.className = "review-opt-letter";
+            letter.textContent = OPTION_LETTERS[optIdx] + ".";
+
+            const txt = document.createElement("span");
+            txt.textContent = opt.text;
+
+            left.appendChild(letter);
+            left.appendChild(txt);
+            row.appendChild(left);
+
+            if (tagText) {
+              const tag = document.createElement("span");
+              tag.className = "review-opt-tag";
+              tag.textContent = tagText;
+              row.appendChild(tag);
+            }
+
+            optsWrap.appendChild(row);
+          });
+
+          const exp = document.createElement("div");
+          exp.className = "review-explanation";
+          const expLabel = document.createElement("strong");
+          expLabel.textContent = "Explanation: ";
+          exp.appendChild(expLabel);
+          exp.appendChild(document.createTextNode(q.explanation));
+
+          card.appendChild(head);
+          card.appendChild(qTitle);
+          card.appendChild(optsWrap);
+          card.appendChild(exp);
+
+          el.reviewList.appendChild(card);
+        });
+
+        if (renderedCount === 0) {
+          const empty = document.createElement("div");
+          empty.className = "review-card";
+          empty.style.textAlign = "center";
+          empty.style.color = "var(--text-secondary)";
+          empty.textContent = `No questions match the "${filter}" filter.`;
+          el.reviewList.appendChild(empty);
+        }
+      }
+
+      /* ==================== EVENT LISTENERS ==================== */
+      el.setupTotalQ.textContent = `${QUESTION_BANK.length} Questions`;
+
+      el.durationBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.selectedMinutes = Number(btn.dataset.minutes);
+          el.durationBtns.forEach((b) => {
+            const isSel = b === btn;
+            b.classList.toggle("selected", isSel);
+            b.setAttribute("aria-checked", isSel ? "true" : "false");
+          });
+        });
+      });
+
+      el.startBtn.addEventListener("click", startExam);
+
+      el.retryFsBtn.addEventListener("click", () => {
+        requestAppFullscreen()
+          .then(() => {
+            if (state.active && getFullscreenElement()) {
+              state.fullscreenArmed = true;
+              el.fsWarningBanner.classList.add("hidden");
+            }
+          })
+          .catch(() => {});
+      });
+
+      el.prevBtn.addEventListener("click", () => {
+        if (!state.active || state.currentIndex <= 0) return;
+        state.currentIndex--;
+        renderCurrentQuestion();
+      });
+
+      el.nextBtn.addEventListener("click", () => {
+        if (!state.active || state.currentIndex >= state.sessionQuestions.length - 1) return;
+        state.currentIndex++;
+        renderCurrentQuestion();
+      });
+
+      el.submitBtn.addEventListener("click", handleSubmitClick);
+
+      el.reviewBtn.addEventListener("click", () => {
+        renderReview("all");
+        showScreen("review");
+      });
+
+      el.backToResultsBtn.addEventListener("click", () => {
+        showScreen("results");
+      });
+
+      el.retakeBtn.addEventListener("click", () => {
+        showScreen("setup");
+      });
+
+      el.reviewFilters.addEventListener("click", (e) => {
+        const btn = e.target.closest(".filter-btn");
+        if (!btn) return;
+        renderReview(btn.dataset.filter);
+      });
+
+      // Keyboard navigation during active exam (Left/Right arrows & A-D keys)
+      document.addEventListener("keydown", (e) => {
+        if (!state.active || !el.modalBackdrop.classList.contains("hidden")) return;
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+        if (e.key === "ArrowLeft" && state.currentIndex > 0) {
+          state.currentIndex--;
+          renderCurrentQuestion();
+        } else if (e.key === "ArrowRight" && state.currentIndex < state.sessionQuestions.length - 1) {
+          state.currentIndex++;
+          renderCurrentQuestion();
+        } else {
+          const upper = e.key.toUpperCase();
+          const optIdx = OPTION_LETTERS.indexOf(upper);
+          if (optIdx !== -1) {
+            selectOption(optIdx);
+          }
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
